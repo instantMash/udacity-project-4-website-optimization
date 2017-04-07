@@ -7,11 +7,11 @@ var cleanCSS = require('gulp-clean-css');
 var htmlmin = require('gulp-htmlmin');
 
 // Optimize images
-gulp.task('imagemin', () =>
+gulp.task('imagemin', function(){
     gulp.src('src/images/*')
         .pipe(imagemin())
         .pipe(gulp.dest('dist/images'))
-);
+});
 
 // Minify Javascript
 gulp.task('uglify', function(){
