@@ -403,16 +403,17 @@ var resizePizzas = function(size) {
   window.performance.mark("mark_start_resize");   // User Timing API function
 
   // Changes the value for the size of the pizza above the slider
+  // Edit after code review: change querySelectorAll to getElementById
   function changeSliderLabel(size) {
     switch(size) {
       case "1":
-        document.querySelector("#pizzaSize").innerHTML = "Small";
+        document.getElementById("pizzaSize").innerHTML = "Small";
         return;
       case "2":
-        document.querySelector("#pizzaSize").innerHTML = "Medium";
+        document.getElementById("pizzaSize").innerHTML = "Medium";
         return;
       case "3":
-        document.querySelector("#pizzaSize").innerHTML = "Large";
+        document.getElementById("pizzaSize").innerHTML = "Large";
         return;
       default:
         console.log("bug in changeSliderLabel");
@@ -432,17 +433,18 @@ var resizePizzas = function(size) {
       newwidth = 33.3;
       break;
       case "3":
-      newWidth = 50;
+      newwidth = 50;
       break;
       default:
         console.log("bug in sizeSwitcher");
     }
 
+// Edit after code review: Change querySelectorAll to get ElementsByClass
+  var randomPizzas = document.getElementsByClassName("randomPizzaContainer");
 
-  var randomPizzas = document.querySelectorAll(".randomPizzaContainer");
-
-  for (var i = 0; i < randomPizzas.length; i++) {
-    randomPizzas[i].style.width = newWidth + "%";
+// Edit after code review: Store Array Length for Efficiency
+  for (var i = 0, len = randomPizzas.length; i < len; i++) {
+    randomPizzas[i].style.width = newwidth + "%";
   }
 }
 
@@ -458,8 +460,9 @@ var resizePizzas = function(size) {
 window.performance.mark("mark_start_generating"); // collect timing data
 
 // This for-loop actually creates and appends all of the pizzas when the page loads
+// Edit after code review: Declare the pizzasDiv variable outside the loop, so only DOM call is made one.
+var pizzasDiv = document.getElementById("randomPizzas");
 for (var i = 2; i < 100; i++) {
-  var pizzasDiv = document.getElementById("randomPizzas");
   pizzasDiv.appendChild(pizzaElementGenerator(i));
 }
 
@@ -514,7 +517,14 @@ window.addEventListener('scroll', updatePositions);
 document.addEventListener('DOMContentLoaded', function() {
   var cols = 8;
   var s = 256;
-  for (var i = 0; i < 200; i++) {
+// Edit after code review: Reduce the number of pizzas. Dynamically calculate the number of pizzas needed to fill the screen, based on screen height.
+  var rows = (Math.floor(screen.height / s)) * cols;
+
+//Edit after code review: Replace querySelector with getElementById. Move this DOM call outside the for statement and save it as a local variable.
+  var movingPizzas = document.getElementById('movingPizzas1');
+
+// Edit after code review: Declare elem variable in the initialization of the for loop. This will prevent it from being create every time the loop is executed.
+  for (var i = 0, elem; i < rows; i++) {
     var elem = document.createElement('img');
     elem.className = 'mover';
     elem.src = "images/pizza-optim.png";
@@ -522,7 +532,7 @@ document.addEventListener('DOMContentLoaded', function() {
     elem.style.width = "73.333px";
     elem.basicLeft = (i % cols) * s;
     elem.style.top = (Math.floor(i / cols) * s) + 'px';
-    document.querySelector("#movingPizzas1").appendChild(elem);
+    movingPizzas.appendChild(elem);
   }
   updatePositions();
 });

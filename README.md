@@ -21,3 +21,31 @@ I used Gulp for minification and image optimization. The configuration files are
 The build files are hosted on GitHub:
 - http://gregdavenportdesign.com/udacity-project-4-website-optimization/dist/index.html
 - http://gregdavenportdesign.com/udacity-project-4-website-optimization/dist/views/pizza.html
+
+## Updates after code review:
+###views/js/main.js
+
+Line 406:
+Change querySelectorAll to getElementById.
+
+Line 442:
+Change querySelectorAll to get ElementsByClassName.
+
+Line 445:
+Store Array Length for Efficiency.
+
+Line 463:
+Declare the pizzasDiv variable outside the loop, so only DOM call is made one.
+
+Line 520:
+Reduce the number of pizzas. Dynamically calculate the number of pizzas needed to fill the screen, based on screen height.
+
+Line: 523
+Replace querySelector with getElementById. Move this DOM call outside the for statement and save it as a local variable.
+
+Line 526:
+Declare elem variable in the initialization of the for loop. This will prevent it from being create every time the loop is executed.
+
+###views/css/styles.css
+Line 36:
+Trigger GPU acceleration
