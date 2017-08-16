@@ -46,6 +46,12 @@ Replace querySelector with getElementById. Move this DOM call outside the for st
 Line 526:
 Declare elem variable in the initialization of the for loop. This will prevent it from being create every time the loop is executed.
 
+Line 497:
+Use 'getElementsByClassName' instead of 'querySelectorAll'
+
+Line 500:
+Store 'document.body.scrollTop / 1250' as a variable outside of the for loop. That’s because for each scroll event, that value stays the same *inside* the loop. Thanks to Karol for showing me how you can use console.log in multiple places to see how the value changes inside vs. outside the loop.
+
 ###views/css/styles.css
 Line 36:
 Trigger GPU acceleration
